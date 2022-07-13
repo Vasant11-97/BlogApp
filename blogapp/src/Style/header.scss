@@ -1,0 +1,17 @@
+.header {
+  padding: 1.5rem 0;
+
+  .conduit {
+    color: #5db85b;
+    font-size: 1.5rem;
+    font-weight: 700;
+  }
+  .nav li {
+    margin-left: 1rem;
+    font-weight: 700;
+    color: gray;
+  }
+  .nav .active {
+    color: #5db85b;
+  }
+}
