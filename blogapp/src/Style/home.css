@@ -9,6 +9,9 @@
 .main .left {
   text-align: left;
 }
+.main .left span {
+  padding-left: 0.5rem;
+}
 .main .left .image {
   width: 70px;
   height: 70px;
@@ -39,4 +42,4 @@
 }
 .main .right button {
   margin: 0.25rem 0.25rem;
-}/*# sourceMappingURL=main.css.map */
+}/*# sourceMappingURL=home.css.map */

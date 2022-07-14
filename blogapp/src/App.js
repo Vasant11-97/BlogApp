@@ -1,14 +1,12 @@
 import './Style/app.scss';
 import Header from './Components/Header';
-import Main from './Components/Main';
-import Hero from './Components/Hero';
+import Home from './Components/Home';
 
 function App() {
   return (
     <div className="App">
       <Header />
-      <Hero />
-      <Main />
+      <Home />
     </div>
   );
 }

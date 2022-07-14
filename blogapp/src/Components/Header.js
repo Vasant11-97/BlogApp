@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import '../Style/header.scss';
 
 function Header() {
@@ -7,19 +7,25 @@ function Header() {
     <div className="container">
       <header className="flex justify-between align-item header">
         <ul>
-          <li className="conduit">
-            <Link to="/">conduit</Link>
+          <li className="conduit" key={'conduit'}>
+            <NavLink to="/">conduit</NavLink>
           </li>
         </ul>
         <ul className="flex justify-between align-item nav">
-          <li className="active">
-            <Link to="/">Home</Link>
+          <li key={'home'}>
+            <NavLink activeClassName="active" to="/">
+              Home
+            </NavLink>
           </li>
-          <li>
-            <Link to="/login">Login</Link>
+          <li key={'login'}>
+            <NavLink activeClassName="active" to="/login">
+              Login
+            </NavLink>
           </li>
-          <li>
-            <Link to="/signup">Sign-up</Link>
+          <li key={'signup'}>
+            <NavLink activeClassName="active" to="/signup">
+              Sign-up
+            </NavLink>
           </li>
         </ul>
       </header>
