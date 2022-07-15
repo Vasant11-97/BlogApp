@@ -1,8 +1,36 @@
 import React, { Component } from 'react';
+import validate from '../utils/validate';
 import Header from './Header';
 
 class Login extends Component {
+  state = {
+    email: '',
+    password: '',
+    username: '',
+    errors: {
+      email: '',
+      password: '',
+    },
+  };
+
+  handleChange = (event) => {
+    let { name, value } = event.target;
+    let errors = { ...this.state.errors };
+
+    validate(errors, name, value);
+
+    this.setState({
+      [name]: value,
+      errors,
+    });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   render() {
+    const { email, password, errors } = this.state;
     return (
       <div>
         <Header />
@@ -14,20 +42,31 @@ class Login extends Component {
             </div>
             <div>
               <input
+                name="email"
                 className="w-full p-4 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600"
-                type="text"
+                type="email"
                 placeholder="Email"
+                onChange={this.handleChange}
+                value={email}
               />
+              <span>{errors.email}</span>
             </div>
             <div>
               <input
+                name="password"
                 className="w-full p-4 text-sm bg-gray-50 focus:outline-none border border-gray-200 rounded text-gray-600"
                 type="text"
                 placeholder="Password"
+                onChange={this.handleChange}
+                value={password}
               />
+              <span>{errors.password}</span>
             </div>
             <div>
-              <button className="w-full py-4 bg-green-500 hover:bg-blue-700 rounded text-sm font-bold text-gray-50 transition duration-200">
+              <button
+                className="w-full py-4 bg-green-500 hover:bg-blue-700 rounded text-sm font-bold text-gray-50 transition duration-200"
+                disabled
+              >
                 Sign In
               </button>
             </div>

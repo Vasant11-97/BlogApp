@@ -1,8 +1,37 @@
 import React, { Component } from 'react';
+import validate from '../utils/validate';
 import Header from './Header';
 
 class Signup extends Component {
+  state = {
+    email: '',
+    password: '',
+    username: '',
+    errors: {
+      username: '',
+      email: '',
+      password: '',
+    },
+  };
+
+  handleChange = (event) => {
+    let { name, value } = event.target;
+    let errors = { ...this.state.errors };
+
+    validate(errors, name, value);
+
+    this.setState({
+      [name]: value,
+      errors,
+    });
+  };
+
+  handleSubmit = (event) => {
+    event.preventDefault();
+  };
+
   render() {
+    const { email, password, errors, username } = this.state;
     return (
       <div>
         <Header />
@@ -11,24 +40,32 @@ class Signup extends Component {
             <div className="bg-white px-6 py-8 rounded shadow-md text-black w-full">
               <h1 className="mb-8 text-3xl text-center">Sign up</h1>
               <input
-                type="text"
+                type="email"
                 className="block border border-grey-light w-full p-3 rounded mb-4"
                 name="email"
                 placeholder="Email"
+                onChange={this.handleChange}
+                value={email}
               />
-
+              <span>{errors.email}</span>
               <input
-                type="password"
+                type="text"
                 className="block border border-grey-light w-full p-3 rounded mb-4"
                 name="password"
                 placeholder="Password"
+                onChange={this.handleChange}
+                value={password}
               />
+              <span>{errors.password}</span>
               <input
                 type="text"
                 className="block border border-grey-light w-full p-3 rounded mb-4"
                 name="username"
                 placeholder="Username"
+                onChange={this.handleChange}
+                value={username}
               />
+              <span>{errors.username}</span>
 
               <button
                 type="submit"
