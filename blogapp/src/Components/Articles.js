@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Loader from './Loader';
 import { AiOutlineHeart } from 'react-icons/ai';
+import { Link } from 'react-router-dom';
 
 class Articles extends Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class Articles extends Component {
           <div className="w-3/5 left">
             {Array.isArray(articles) &&
               articles.map((article) => {
+                console.log(article, 'slug wala');
                 return (
                   <div className="article shadow-lg w-full" key={article.slug}>
                     <div className="flex justify-content">
@@ -40,7 +42,7 @@ class Articles extends Component {
                     <h2>Title: {article.title}</h2>
                     <p>Description: {article.description}</p>
                     <button className="bg-green-500 hover:bg-blue-700 text-white font-bold py-1 px-4 rounded">
-                      Read More...
+                      <Link to={`/articles/${article.slug}`}>Read More...</Link>
                     </button>
                   </div>
                 );

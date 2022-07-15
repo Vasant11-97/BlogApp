@@ -6,7 +6,8 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Notfound from './Components/Notfound';
 
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
+import SingleArticle from './Components/SingleArticle';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
@@ -15,6 +16,7 @@ root.render(
       <Route path="/login" element={<Login />}></Route>
       <Route path="/signup" element={<Signup />}></Route>
       <Route path="/" element={<App />} exact></Route>
+      <Route path="/articles/:slug" element={<SingleArticle />}></Route>
       <Route path="*" element={<Notfound />}></Route>
     </Routes>
   </BrowserRouter>

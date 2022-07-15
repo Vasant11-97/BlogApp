@@ -15,7 +15,7 @@ class Home extends Component {
       offset: 0,
       articleCount: null,
       activePage: 1,
-      activeTab: 'global',
+      activeTab: '',
     };
   }
 
@@ -24,7 +24,7 @@ class Home extends Component {
 
     return fetch(
       `https://mighty-oasis-08080.herokuapp.com/api/articles/?limit=${limit}&offset=${offset}` +
-        (activeTab === 'global' || `&tag=${activeTab}`) 
+        (activeTab && `&tag=${activeTab} `)
     )
       .then((res) => res.json())
       .then((data) => {
@@ -41,24 +41,30 @@ class Home extends Component {
   handleActiveTab = (activeTab) => {
     this.setState({
       activeTab: activeTab,
+      offset: 0,
+    });
+  };
+  handleGlobal = () => {
+    this.setState({
+      activeTab: '',
     });
   };
   handlePagination = (activePageNumber) => {
     const offset = activePageNumber * 10 - 10;
+    console.log(activePageNumber);
     this.setState({
       offset: offset,
       activePage: activePageNumber,
     });
   };
 
-  componentDidUpdate(prevProps, prevState) {
+  async componentDidUpdate(prevProps, prevState) {
     console.log(prevState, ': prevState', 'currebt state: ', this.state);
     if (
       prevState.activePage !== this.state.activePage ||
-      prevState.offset !== this.state.offset ||
       prevState.activeTab !== this.state.activeTab
     ) {
-      this.fetchArticles();
+      await this.fetchArticles();
     }
   }
 
@@ -68,7 +74,18 @@ class Home extends Component {
       <div>
         <Hero />
         <main className=" main container">
-          <div className="global">Global Feed</div>
+          {this.state.activeTab === '' ? (
+            <div className="global" onClick={this.handleGlobal}>
+              Global Feed
+            </div>
+          ) : (
+            <>
+              <div className="global" onClick={this.handleGlobal}>
+                Global Feed
+              </div>
+              <div>#{this.state.activeTab}</div>
+            </>
+          )}
           <div className="flex justify-between">
             <Articles articles={articles} />
             <Taglist handleActiveTab={this.handleActiveTab} />
