@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Link, NavLink } from 'react-router-dom';
 import '../Style/header.scss';
+import UserContext from './UserContext';
 
-function Header() {
+function Header(props) {
+  console.log(props, 'Header props');
+  const user = useContext(UserContext);
+  console.log(user, 'bhosadika');
+
   return (
     <div className="container">
       <header className="flex justify-between align-item header">

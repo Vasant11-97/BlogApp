@@ -1,16 +1,41 @@
 import React, { Component } from 'react';
+import BaseUrl from '../utils/constant';
 import validate from '../utils/validate';
+import withRouter from '../utils/withrouter';
 import Header from './Header';
+import UserContext from './UserContext';
 
 class Login extends Component {
   state = {
     email: '',
     password: '',
-    username: '',
     errors: {
       email: '',
       password: '',
     },
+  };
+
+  static contextType = UserContext;
+
+  login = () => {
+    let { email, password } = this.state;
+    fetch(BaseUrl + 'users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        user: {
+          email,
+          password,
+        },
+      }),
+    })
+      .then((res) => res.json())
+      .then((data) => {
+        this.context.persistUser(data.user);
+        this.props.navigate('/');
+      });
   };
 
   handleChange = (event) => {
@@ -31,9 +56,9 @@ class Login extends Component {
 
   render() {
     const { email, password, errors } = this.state;
+
     return (
       <div>
-        <Header />
         <section className="flex justify-center items-center h-screen bg-gray-100">
           <div className="max-w-md w-full bg-white rounded p-6 space-y-4">
             <div className="mb-4">
@@ -64,8 +89,9 @@ class Login extends Component {
             </div>
             <div>
               <button
+                type="submit"
                 className="w-full py-4 bg-green-500 hover:bg-blue-700 rounded text-sm font-bold text-gray-50 transition duration-200"
-                disabled
+                onClick={this.login}
               >
                 Sign In
               </button>
@@ -96,4 +122,4 @@ class Login extends Component {
   }
 }
 
-export default Login;
+export default withRouter(Login);

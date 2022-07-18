@@ -3,6 +3,8 @@ import Header from './Header';
 import withRouter from '../utils/withrouter';
 import Loader from './Loader';
 
+import { Link, NavLink } from 'react-router-dom';
+
 class SingleArticle extends Component {
   constructor(props) {
     super(props);
@@ -28,9 +30,7 @@ class SingleArticle extends Component {
     const { article } = this.state;
     console.log(article, 'Articleee');
     return (
-      <>
-        <Header />
-
+      <div className="singlearticle">
         {!this.state.article ? (
           <Loader />
         ) : (
@@ -43,16 +43,32 @@ class SingleArticle extends Component {
                     <img src={article.author.image}></img>
                   </div>
                   <div>
-                    <h4>{article.author.username}</h4>
+                    <h4>
+                      {article.author.username.charAt(0).toUpperCase() +
+                        article.author.username.slice(1)}
+                    </h4>
                     <p>{article.createdAt}</p>
                   </div>
                 </div>
               </div>
             </div>
-            <p className="container">{article.body}</p>
+            <p className="container body">{article.body}</p>
+            <hr className="container hr" />
+            <p className="container navlink">
+              <span>
+                <NavLink to="/signup">Sign Up</NavLink>{' '}
+              </span>
+              or
+              <span>
+                <NavLink to="/login" activeClassName="active">
+                  Sign In
+                </NavLink>
+              </span>
+              to add comments and articles.
+            </p>
           </div>
         )}
-      </>
+      </div>
     );
   }
 }
